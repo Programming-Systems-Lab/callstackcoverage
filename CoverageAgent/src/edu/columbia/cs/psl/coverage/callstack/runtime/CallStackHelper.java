@@ -20,7 +20,7 @@ public class CallStackHelper {
 
 	/**
 	 * add method to CCT and update pointer
-	 * @param methodName classname+methodname+signiture
+	 * @param methodName classname+methodname+signature
 	 */
 
 	public static void addCallee(String methodName){
@@ -44,19 +44,30 @@ public class CallStackHelper {
 
 	/**
 	 * update pointer to point to parent node
-	 * @param methodName classname+methodname+signiture
+	 * @param methodName classname+methodname+signature
 	 */
 
+	static{
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
+			public void run()
+			{
+				System.out.println("CCT:\n");
+				cct.printCCT();
+				System.out.println("\ncalling sequences:\n");
+				cct.printSubpaths(cct.getRoot(), new String[1000], 0);
+			}
+		}));
+	}
 	public static void returnToCaller(String methodName){
 
 		assert(currentNode.getData().equals(methodName));
 
 		//program ends
 		if(currentNode == cct.getRoot()){
-			System.out.println("CCT:\n");
-			cct.printCCT();
-			System.out.println("\ncalling sequences:\n");
-			cct.printSubpaths(cct.getRoot(), new String[1000], 0);
+//			System.out.println("CCT:\n");
+//			cct.printCCT();
+//			System.out.println("\ncalling sequences:\n");
+//			cct.printSubpaths(cct.getRoot(), new String[1000], 0);
 		}
 		else{
 			currentNode = currentNode.getParent();
@@ -66,7 +77,7 @@ public class CallStackHelper {
 
 	/**
 	 * push method to callstack
-	 * @param methodName classname+methodname+signiture
+	 * @param methodName classname+methodname+signature
 	 */
 
 	public static void callstackpush(String methodName){
@@ -76,7 +87,7 @@ public class CallStackHelper {
 	/**
 	 * record current callstack and pop
 	 * calls outputstack() when the stack is empty after pop operation
-	 * @param methodName classname+methodname+signiture
+	 * @param methodName classname+methodname+signature
 	 */
 
 	public static void callstackrecord(String methodName){

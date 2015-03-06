@@ -8,7 +8,6 @@ public class CallStackAdapter extends AdviceAdapter{
 
 	private String name;
 	private String className;
-
 	private String desc;
 
 	protected CallStackAdapter(int api, MethodVisitor mv, int access,
@@ -22,18 +21,16 @@ public class CallStackAdapter extends AdviceAdapter{
 	}
 	@Override
 	protected void onMethodEnter() {
-		if(!className.startsWith("java/")&&!className.startsWith("sun/")){
-			mv.visitLdcInsn(className +" "+ name+" "+desc);
-			mv.visitMethodInsn(INVOKESTATIC, Type.getInternalName(CallStackHelper.class), "addCallee", "(Ljava/lang/String;)V", false);
-		}
+		mv.visitLdcInsn(className +" "+ name+" "+desc);
+		mv.visitMethodInsn(INVOKESTATIC, Type.getInternalName(CallStackHelper.class), "addCallee", "(Ljava/lang/String;)V", false);
 	}
 	@Override
 	protected void onMethodExit(int opcode) {
+		mv.visitLdcInsn(className +" "+ name+" "+desc);
+		mv.visitMethodInsn(INVOKESTATIC, Type.getInternalName(CallStackHelper.class), "returnToCaller", "(Ljava/lang/String;)V", false);
 
-		if(!className.startsWith("java/")&&!className.startsWith("sun/")){
-			mv.visitLdcInsn(className +" "+ name+" "+desc);
-			mv.visitMethodInsn(INVOKESTATIC, Type.getInternalName(CallStackHelper.class), "returnToCaller", "(Ljava/lang/String;)V", false);
-		}
 	}
+
+
 
 }

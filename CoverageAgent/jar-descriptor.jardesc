@@ -11,10 +11,10 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <javaElement handleIdentifier="=CallStackCoverage-Agent/src"/>
+        <file path="/CallStackCoverage-Agent/.gitignore"/>
         <folder path="/CallStackCoverage-Agent/lib"/>
         <file path="/CallStackCoverage-Agent/.classpath"/>
-        <file path="/CallStackCoverage-Agent/.gitignore"/>
         <file path="/CallStackCoverage-Agent/.project"/>
+        <javaElement handleIdentifier="=CallStackCoverage-Agent/src"/>
     </selectedElements>
 </jardesc>
